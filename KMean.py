@@ -34,18 +34,14 @@ def k_mean(points, num_k, limit_x, limit_y):
     colors = [numpy.random.rand(3) for k in range(num_k)]
     centroids = [Point(random.randint(1, limit_x), random.randint(1, limit_y)) for k in range(num_k)]
     grades = numpy.zeros((num_points, num_k), dtype=numpy.int)
-    all_centroids = []
-    all_point_centroids = []
     old_b = None
     while old_b is None or grades != old_grades:
-        all_centroids.append(centroids[:])
         xc = [c.x for c in centroids]
         yc = [c.y for c in centroids]
         plt.scatter(xc, yc, s=300, c="red")
         distances = [[distance(p, c) for c in centroids] for p in points]
         old_grades = [[grades[i][k] for k in range(num_k)] for i in range(num_points)]
         grades = [[0 if k != min(enumerate(distances[i][:]), key=itemgetter(1))[0] else 1 for k in range(num_k)] for i in range(num_points)]
-        points_centroids = [None for k in range(num_k)]
         for k in range(num_k):
             points_centroid = []
             for i in range(num_points):
@@ -58,14 +54,11 @@ def k_mean(points, num_k, limit_x, limit_y):
                 centroids[k] = Point(random.randint(1, limit_x), random.randint(1, limit_y))
             else:
                 centroids[k] = average_points(points_centroid)
-            points_centroids[k] = points_centroid[:]
-        all_point_centroids.append(points_centroids[:])
         old_b = numpy.packbits([old_grades[i][:] for i in range(num_points)])
         plt.plot()
         plt.show(block=False)
         plt.pause(0.00005)
         plt.clf()
-    return all_centroids, all_point_centroids
 
 
 def main():
