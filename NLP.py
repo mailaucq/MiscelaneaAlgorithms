@@ -7,7 +7,7 @@ __author__ = 'laura'
 #
 
 
-name_coca_cola = ["coca light", "coca cola", "cocacola", "bug bunny"]
+dict_n_grams = ["coca light", "coca cola", "cocacola", "bug bunny"]
 
 
 def n_grams(num_gram, sentence):
@@ -24,7 +24,7 @@ def n_grams(num_gram, sentence):
             if cont < num_gram - 1:
                 word_n_gram += " "
             cont += 1
-        if word_n_gram in name_coca_cola:
+        if word_n_gram in dict_n_grams:
             words_n_grams.append(word_n_gram)
             i = i + cont
         else:
